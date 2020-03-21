@@ -1,0 +1,5 @@
+R_programming Command
+
+To load the csv file 
+mydata <- read.csv(file.choose())
+ 
