@@ -1,0 +1,4 @@
+#rnorm
+#rep
+#seq
+#print
