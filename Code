@@ -2,4 +2,685 @@ R_programming Command
 
 To load the csv file 
 mydata <- read.csv(file.choose())
+install.package("ggplot2")  //install a package
+library(ggplot2) // activate the package
+
+
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+plotting of x-yPlot
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+
+ggplot(data=mydata[mydata$carat<2.5,],aes(x=carat,y=price, colour= clarity))+
+geom_point(aplha =0.01)+
+geom_smooth()
  
+------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+How to concatenate two charachter or string in R
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+greeting <-"Hello"
+name<- "Gaurav"
+
+mesage<- paste(greeting,name)
+ 
+ 
+ 
+-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+Homework
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+N<-100 
+  counter<-0
+  for(i in rnorm(100))
+{
+    if(i>-1 & i< 1)
+    {
+      counter= counter+1
+    }
+}
+answer <- counter/N
+answer
+
+
+-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+Financial statement analysis
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+#Data
+revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
+expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
+
+#Solution
+#Calculate Profit As The Differences Between Revenue And Expenses
+profit <- revenue - expenses
+profit
+
+#Calculate Tax As 30% Of Profit And Round To 2 Decimal Points
+tax <- round(0.30 * profit, 2)
+tax 
+
+#Calculate Profit Remaining After Tax Is Deducted
+profit.after.tax <- profit - tax
+profit.after.tax
+
+#Calculate The Profit Margin As Profit After Tax Over Revenue
+#Round To 2 Decimal Points, Then Multiply By 100 To Get %
+profit.margin <- round(profit.after.tax  / revenue, 2) * 100
+profit.margin
+
+#Calculate The Mean Profit After Tax For The 12 Months
+mean_pat <- mean(profit.after.tax)
+mean_pat
+
+#Find The Months With Above-Mean Profit After Tax
+good.months <- profit.after.tax> mean_pat
+good.months
+
+#Bad Months Are The Opposite Of Good Months !
+bad.months <- !good.months
+bad.months
+
+#The Best Month Is Where Profit After Tax Was Equal To The Maximum
+best.month <- profit.after.tax == max(profit.after.tax)
+best.month
+
+#The Worst Month Is Where Profit After Tax Was Equal To The Minimum
+worst.month <- profit.after.tax == min(profit.after.tax)
+worst.month
+
+#Convert All Calculations To Units Of One Thousand Dollars
+revenue.1000 <- round(revenue / 1000, 0)
+expenses.1000 <- round(expenses/1000)
+profit.after.tax.1000 <- round(profit.after.tax/1000)
+profit.1000<-round(profit/1000)
+
+#Print Results
+revenue.1000
+expenses.1000
+profit.1000
+profit.after.tax.1000
+profit.margin
+good.months
+bad.months
+best.month
+worst.month
+
+#BONUS:
+#Preview Of What's Coming In The Next Section
+M <- rbind(
+  revenue.1000,
+  expenses.1000,
+  profit.1000,
+  profit.after.tax.1000,
+  profit.margin,
+  good.months,
+  bad.months,
+  best.month,
+  worst.month
+)
+
+#Print The Matrix
+M
+
+
+
+==========================================================================================================
+Matplot
+=========================================================================================================
+matplot((FieldGoals),type = "b",pch=15:18,col=c(1:4,6))
+legend("bottomleft",inset = 0.01,legend = Players ,col=c(1:4,6),pch=15:18,horiz = F)
+
+
+==========================================================================================================
+Accessing the rows and column
+==========================================================================================================
+Games[1:3,6:10]
+Games[c(1,10),]
+Games[,c("2008","2009")]
+Games[1,5,drop=F]
+Games[1,,drop=F]
+
+
+==============================================================================================================
+How to create function
+==============================================================================================================
+myplot<-function(data,rows){
+  d<-data[rows,,drop=FALSE]
+  matplot(t(d),type = "b",pch=15:18,col=c(1:4,6))
+  legend("bottomleft",inset = 0.001,legend = Players[rows] ,col=c(1:4,6),pch=15:18,horiz = F)
+}
+
+myplot(Salary,1:5)
+
+
+==================================================================================================================
+How to name the column and Rows in R_programming
+====================================================================================================================
+#name_Vector
+
+charlie<-1:5
+charlie
+
+#names
+names(charlie)<-c("a","b","c","d","e")
+charlie
+
+charlie["e"]
+
+#Remove Name
+names(charlie) <- NULL
+
+
+#===========================================
+#naming the matrix
+
+temp.vect<-rep(c("a","b","zZ"),each=3)
+temp.vect
+d<-matrix(temp.vect,3,3)
+d
+
+#name the rows and column 
+
+rownames(d) <-c("How","You","are?")
+d
+
+colnames(d) <-c("I","am","9")
+d
+
+d["How","am"] <-0
+d
+
+
+
+#matrix
+?matrix
+my_data<-1:20
+my_data
+
+
+a<-matrix(my_data,4,5)
+a
+a[2,3]
+
+b<-matrix(my_data,4,5,byrow = TRUE)
+b
+b[2,5]
+
+
+#rbind
+
+r1<-c(1,2,3)
+r2<-c(2,3,4)
+r3<-c(5,8,9)
+
+C<-rbind(r1,r2,r3)
+C
+
+
+#cbind
+c1<-1:7
+c2<- -1:-5
+D<-cbind(c1,c2)
+D
+
+===============================================================================================================================================
+NBA Exercise
+
+===============================================================================================================================================
+#Seasons
+Seasons <- c("2005","2006","2007","2008","2009","2010","2011","2012","2013","2014")
+
+#Players
+Players <- c("KobeBryant","JoeJohnson","LeBronJames","CarmeloAnthony","DwightHoward","ChrisBosh","ChrisPaul","KevinDurant","DerrickRose","DwayneWade")
+
+#Free Throws
+KobeBryant_FT <- c(696,667,623,483,439,483,381,525,18,196)
+JoeJohnson_FT <- c(261,235,316,299,220,195,158,132,159,141)
+LeBronJames_FT <- c(601,489,549,594,593,503,387,403,439,375)
+CarmeloAnthony_FT <- c(573,459,464,371,508,507,295,425,459,189)
+DwightHoward_FT <- c(356,390,529,504,483,546,281,355,349,143)
+ChrisBosh_FT <- c(474,463,472,504,470,384,229,241,223,179)
+ChrisPaul_FT <- c(394,292,332,455,161,337,260,286,295,289)
+KevinDurant_FT <- c(209,209,391,452,756,594,431,679,703,146)
+DerrickRose_FT <- c(146,146,146,197,259,476,194,0,27,152)
+DwayneWade_FT <- c(629,432,354,590,534,494,235,308,189,284)
+# create Matrix
+
+Free_throw <- rbind(KobeBryant_FT,JoeJohnson_FT,LeBronJames_FT,
+                  CarmeloAnthony_FT,DwightHoward_FT,
+                    ChrisBosh_FT,ChrisPaul_FT,KevinDurant_FT,
+                  DerrickRose_FT,DwayneWade_FT)
+
+rm(KobeBryant_FT,JoeJohnson_FT,LeBronJames_FT,
+   CarmeloAnthony_FT,DwightHoward_FT,
+   ChrisBosh_FT,ChrisPaul_FT,KevinDurant_FT,
+   DerrickRose_FT,DwayneWade_FT)
+Free_throw
+
+##Renaming the rows and columns 
+colnames(Free_throw) <-Seasons
+rownames(Free_throw) <-Players
+Free_throw
+
+#Free Throw Attempts
+KobeBryant_FTA <- c(819,768,742,564,541,583,451,626,21,241)
+JoeJohnson_FTA <- c(330,314,379,362,269,243,186,161,195,176)
+LeBronJames_FTA <- c(814,701,771,762,773,663,502,535,585,528)
+CarmeloAnthony_FTA <- c(709,568,590,468,612,605,367,512,541,237)
+DwightHoward_FTA <- c(598,666,897,849,816,916,572,721,638,271)
+ChrisBosh_FTA <- c(581,590,559,617,590,471,279,302,272,232)
+ChrisPaul_FTA <- c(465,357,390,524,190,384,302,323,345,321)
+KevinDurant_FTA <- c(256,256,448,524,840,675,501,750,805,171)
+DerrickRose_FTA <- c(205,205,205,250,338,555,239,0,32,187)
+DwayneWade_FTA <- c(803,535,467,771,702,652,297,425,258,370)
+#Matrix
+
+Free_throw_attempt <-cbind(KobeBryant_FTA,JoeJohnson_FTA,LeBronJames_FTA,
+                           CarmeloAnthony_FTA,DwightHoward_FTA,
+                           ChrisBosh_FTA,ChrisPaul_FTA,KevinDurant_FTA,
+                           DerrickRose_FTA,DwayneWade_FTA)
+
+rm(KobeBryant_FTA,JoeJohnson_FTA,LeBronJames_FTA,
+   CarmeloAnthony_FTA,DwightHoward_FTA,
+   ChrisBosh_FTA,ChrisPaul_FTA,KevinDurant_FTA,
+   DerrickRose_FTA,DwayneWade_FTA)
+Free_throw_attempt
+
+colnames(Free_throw_attempt) <-Seasons
+rownames(Free_throw_attempt) <-Players
+Free_throw_attempt
+
+
+myplot <- function(z, who=1:10) {
+  matplot(t(z[who,,drop=F]), type="b", pch=15:18, col=c(1:4,6), main="Basketball Players Analysis")
+  legend("bottomleft", inset=0.01, legend=Players[who], col=c(1:4,6), pch=15:18, horiz=F)
+}
+
+myplot(Free_throw)
+myplot(Free_throw_attempt)
+
+myplot(Free_throw/Games)
+myplot(Free_throw_attempt/Games)
+myplot(Free_throw/Free_throw_attempt)
+
+
+myplot(FieldGoals/FieldGoalAttempts)
+
+myplot((Points-Free_throw)/FieldGoals)
+
+
+==================================================================================================================================================================
+
+How to import data
+
+====================================================================================================================================================================
+
+#select the File manually (MethodNo-1)
+
+stats <-read.csv(file.choose())
+stats
+
+
+#method-2
+getwd() # where are your directory currently
+setwd("F:\\Udemy\\Rprogram\\Section5")  #setup the directory
+rm(stats)
+stats<- read.csv("P2-Demographic-Data.csv")
+stats
+
+ ==========================================================================================================================================================================
+ 
+ some Interview questions 
+ 
+ ==========================================================================================================================================================================
+ 
+ str()- means structure function in R_programming
+ runif()- Random variable distributed normally 
+ 
+ 
+ 
+ 
+ 
+ 
+ =============================================================================================================================================================================
+ 
+ qplot()
+ 
+ ==============================================================================================================================================================================
+ 
+ qplot(data=stats ,x=Internet.users ,y= Birth.rate,
+      size=I(4),color=I("Red"))
+
+ qplot(data=stats ,x=Internet.users ,y= Birth.rate,
+      size=I(5),color=Income.Group)
+
+================================================================================================================================================================================
+      Creating Data Frame and how to merge dataframe
+	  
+================================================================================================================================================================================
+mydf<- data.frame(Countries_2012_Dataset,Codes_2012_Dataset,Regions_2012_Dataset)
+head(mydf)
+
+colnames(mydf) <-c("Country","Code","Regions")
+rm(mydf)
+
+mydf<- data.frame(Country=Countries_2012_Dataset,
+                  Code=Codes_2012_Dataset,
+                  Regions=Regions_2012_Dataset)
+
+
+===============================================================================================================================================================================
+Graphs qplot()
+==============================================================================================================================================================================
+
+#shapes
+qplot(data=merg ,x=Internet.users ,y= Birth.rate,
+      size=I(4),color=Regions,shape=I(17))
+
+#transparency
+qplot(data=merg ,x=Internet.users ,y= Birth.rate,
+      size=I(4),color=Regions,shape=I(19),alpha=I(0.6))
+
+#titles
+qplot(data=merg ,x=Internet.users ,y= Birth.rate,
+      size=I(4),color=Regions,shape=I(19),alpha=I(0.6),
+      main = "BirthRate vs Internet Users")
+	  
+	  
+=================================================================================================================================================================================
+ggplot()
+
+==================================================================================================================================================================================
+getwd() # where are your directory currently
+setwd("F:\\Udemy\\Rprogram\\Section6") 
+movies<-read.csv("P2-Movie-Ratings.csv")
+head(movies)
+colnames(movies)
+colnames(movies)<- c("Film","Genre","CriticsRating","AudienceRating","BudgetinMillion","Year")
+str(movies)
+summary(movies)
+movies$Year<-factor(movies$Year)
+
+
+#aesthetic
+
+library(ggplot2)
+ggplot(movies,aes(x=CriticsRating,y=AudienceRating))
+
+#add geometry
+ggplot(movies,aes(x=CriticsRating,y=AudienceRating)) +
+  geom_point()
+
+#add colour
+ggplot(movies,aes(x=CriticsRating,y=AudienceRating,
+                  colour=Genre)) +
+  geom_point
+
+#add size
+ggplot(movies,aes(x=CriticsRating,y=AudienceRating,
+                  colour=Genre,size=BudgetinMillion)) +
+  geom_point()
+
+
+#plotting with the layer 
+p<- ggplot(movies,aes(x=CriticsRating,y=AudienceRating,
+                  colour=Genre,size=BudgetinMillion)) 
+
+#points
+p+ geom_point()
+  
+#line
+p+ geom_line()
+
+
+#point and line
+p+geom_line()+geom_point()
+
+
+
+
+#overidding Aesthetic
+q<- ggplot(movies,aes(x=CriticsRating,y=AudienceRating,
+                      colour=Genre,size=BudgetinMillion)) 
+
+
+#example1
+q+geom_point(aes(size=CriticsRating))
+
+#example2
+q+geom_point(aes(colour=BudgetinMillion))
+
+
+q+geom_point(aes(x=BudgetinMillion)) + xlab("$BudgetinMillion$")
+
+p+geom_line(size=1)+geom_point()
+
+
+# setting and mapping 
+
+r<- ggplot(data=movies,aes(x=CriticsRating,y=AudienceRating))
+r+geom_point()
+
+
+#colors using mapping
+r+geom_point(aes(color=Genre))
+#colors using setting
+r+geom_point(colors="DarkGreen")
+
+#mapping
+r+geom_point(aes(size=BudgetinMillion))
+#setting
+r+geom_point(size=10)
+
+
+#histogram and Geometry
+
+s <- ggplot(data=movies ,aes(x=BudgetinMillion))
+s+geom_histogram(binwidth = 10)
+
+#add colors
+s+geom_histogram(binwidth = 10,aes(fill=Genre))
+
+#add border
+s+geom_histogram(binwidth = 10,aes(fill=Genre),color="black")
+
+
+#sometime we need density map
+
+s+geom_density(aes(fill=Genre))
+s+geom_density(aes(fill=Genre),position = "stack")
+
+
+#starting layers tips
+t<- ggplot(data=movies,aes(x=AudienceRating))
+t+ geom_histogram(binwidth = 10,fill="White",colour ="BLUE")
+
+t<- ggplot(data=movies,aes(x=CriticsRating))
+t+ geom_histogram(binwidth = 10,fill="White",colour ="BLUE")
+
+#statiscal layer 
+
+u<- ggplot(data=movies,aes(x=CriticsRating,y=AudienceRating,color=Genre))
+u+geom_point() + geom_smooth(fill=NA)
+
+#boxplot
+
+u<-ggplot(data=movies,aes(x=Genre ,y= AudienceRating,color=Genre))
+u+geom_boxplot()
+u+geom_boxplot(size=1.2) + geom_point()
+
+u+geom_boxplot(size=1.2) +geom_jitter()
+
+#for more good visualization
+u+geom_jitter()+ geom_boxplot(size=1.2,alpha=0.5)
+
+
+#box plot for critics rating 
+u<-ggplot(data=movies,aes(x=Genre ,y= CriticsRating,color=Genre))
+u+geom_boxplot()
+u+geom_boxplot(size=1.2) + geom_point()
+
+u+geom_boxplot(size=1.2) +geom_jitter()
+
+#for more good visualization
+u+geom_jitter()+ geom_boxplot(size=1.2,alpha=0.5)
+
+
+#using facets
+
+
+v<-ggplot(data=movies,aes(x=BudgetinMillion))
+v+geom_histogram(binwidth = 10,aes(fill=Genre),color="Black") +
+  facet_grid(Genre~.,scales = "Free")
+
+#box plot with facets
+x<- ggplot(data=movies,aes(x=CriticsRating,y=AudienceRating,color=Genre))
+x+geom_point(size=3)+facet_grid(Genre~.)
+x+geom_point(size=3)+facet_grid(.~Year)
+x+geom_point(size=3)+facet_grid(Genre~Year)+geom_smooth()
+
+x+geom_point(aes(size=BudgetinMillion))+facet_grid(Genre~Year)+geom_smooth()
+
+
+
+
+
+#coordinates
+#zoom
+#limit
+
+t<-ggplot(data=movies,aes(x=CriticsRating,y=AudienceRating,color=Genre))
+t+geom_point()+xlim(50,100)+ylim(50,100)
+
+
+#wont work good always for example
+
+l<- ggplot(data=movies,aes(x=BudgetinMillion))
+l+geom_histogram(binwidth = 10,aes(fill=Genre),
+                 color="Black")+
+  coord_cartesian(ylim=c(0,50))
+
+x+geom_point(aes(size=BudgetinMillion))+facet_grid(Genre~Year)+geom_smooth()+
+  coord_cartesian(ylim=c(0,100))
+
+
+#theme
+
+o<-ggplot(data=movies,aes(x=BudgetinMillion))
+h<- o+geom_histogram(binwidth = 10,aes(fill=Genre),color="Black")
+h
+#axes label
+h+xlab("Money")+
+  ylab("Number of Movie")
+#label formatting
+h+
+  xlab("Money")+
+  ylab("Number of Movie")+
+  theme(axis.title.x = element_text(color=" Dark Green",size=30),
+        axis.title.y = element_text(color="Red",size=20),
+        axis.text.x= element_text(size=20),
+        axis.text.y= element_text(size = 20))
+
+
+
+#legend formatting
+h+
+  xlab("Money")+
+  ylab("Number of Movie")+
+  theme(axis.title.x = element_text(color=" Dark Green",size=30),
+        axis.title.y = element_text(color="Red",size=20),
+        axis.text.x= element_text(size=20),
+        axis.text.y= element_text(size = 20),
+        legend.title = element_text(size=30),
+        legend.text = element_text(size=10),
+        legend.position = c(1,1),
+        legend.justification = c(1,1))
+
+
+#Title
+h+
+  xlab("Money")+
+  ylab("Number of Movie")+
+  ggtitle("Movie Budget Distribution")+
+  theme(axis.title.x = element_text(color=" Dark Green",size=30),
+        axis.title.y = element_text(color="Red",size=20),
+        axis.text.x= element_text(size=20),
+        axis.text.y= element_text(size = 20),
+        legend.title = element_text(size=30),
+        legend.text = element_text(size=10),
+        legend.position = c(1,1),
+        legend.justification = c(1,1),
+        plot.title = element_text(colour="DarkBlue",
+                                  size=40,
+                                  family ="courier"))
+								  
+				
+				
+===============================================================================================================================================================================
+
+Homework 3
+
+Movie World
+
+===============================================================================================================================================================================
+
+
+getwd() # where are your directory currently
+setwd("F:\\Udemy\\Rprogram\\Section6\\P2-Section6-Homework-Data") 
+movies<-read.csv("Section6-Homework-Data.csv")
+head(movies)
+colnames(movies)
+colnames(movies) <-c("DOW","Director","Genre","MTitle","RD","Studio",
+             "AdjustedGross","Budget","Gross","IMDBRating",
+            "MovieLensRating","Overseas","Overseas_percentage","Profit",
+            "Profit_percentage","Runtime","US","Gross_percent_US")
+head(movies)
+str(movies)
+
+filt <- ((movies$Genre == "action" )| (movies$Genre == "adventure") | (movies$Genre == "animation")|
+         (movies$Genre == "comedy")  | (movies$Genre == "drama"))
+filt
+movies <- movies[filt,]
+movies
+
+filt2<- movies$Studio %in% c("Buena Vista Studios","WB","Fox","Universal","Sony","Paramount Pictures")
+movies <-movies[filt2,]
+movies
+
+
+
+
+movies1<- movies[filt & filt2,]
+movies1
+
+
+library(ggplot2)
+p <- ggplot(data=movies1, aes(x=Genre, y=Gross_percent_US))
+p
+p+geom_boxplot()
+  q <- p+geom_jitter(aes(size=Budget,color=Studio))+
+  geom_boxplot(alpha=0.5,outlier.colour = NA) 
+  
+#Axes and main heading   
+q+xlab("Genre")+ ylab("Gross%US")+ggtitle("Domestic Gross % By Genre")+
+theme(axis.title.x = element_text(color=" Dark Green",size=10),
+      axis.title.y = element_text(color="Red",size=20),
+      axis.text.x= element_text(size=20),
+      axis.text.y= element_text(size = 20),
+      legend.title = element_text(size=10),
+      legend.text = element_text(size=10),
+      plot.title = element_text(colour="DarkBlue",
+                                size=20,
+                                family ="courier"))
+q$labels$size <- "Budget $M"
+q
+
+==========================================================================================================================================================
+Gaurav Kumar
+===================================================================================================================================================================================
+        
